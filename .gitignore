@@ -206,3 +206,6 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 scraper/config.py
+
+# Локальные настройки Claude Code
+.claude/settings.local.json
