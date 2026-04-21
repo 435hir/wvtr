@@ -209,3 +209,6 @@ scraper/config.py
 
 # Локальные настройки Claude Code
 .claude/settings.local.json
+
+# Windows Zone.Identifier метки на скачанных файлах
+*:Zone.Identifier
