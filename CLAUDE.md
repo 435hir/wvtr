@@ -218,6 +218,7 @@ git push
 9. **Do not auto-format entire files.** Touch only the function or block you were asked to change. Massive reformatting makes diffs unreadable.
 10. **Do not assume PowerShell or Windows paths.** This project runs in WSL Ubuntu. Use bash syntax, forward slashes, and Unix-style paths (`~/projects/wvtr`, not `C:\...`).
 11. Always present a plan (5–10 lines) before writing any code. Wait for explicit approval ("пиши код" / "go") before implementing. Never write code and plan in the same response.
+12. After completing a task, review CLAUDE.md and list any updates needed: Current Status, file structure, new dependencies, or other sections that should reflect the changes made. Do not edit CLAUDE.md yourself — list the changes for the author to approve.
 
 ---
 
