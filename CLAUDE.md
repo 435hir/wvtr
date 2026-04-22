@@ -217,6 +217,7 @@ git push
 8. **Never use bare `except:` or `except Exception: pass`.** Every caught exception must be logged with context (at minimum, the exception type and a message describing what operation failed). Silent failures are forbidden.
 9. **Do not auto-format entire files.** Touch only the function or block you were asked to change. Massive reformatting makes diffs unreadable.
 10. **Do not assume PowerShell or Windows paths.** This project runs in WSL Ubuntu. Use bash syntax, forward slashes, and Unix-style paths (`~/projects/wvtr`, not `C:\...`).
+11. Always present a plan (5–10 lines) before writing any code. Wait for explicit approval ("пиши код" / "go") before implementing. Never write code and plan in the same response.
 
 ---
 
