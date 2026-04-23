@@ -219,6 +219,7 @@ git push
 10. **Do not assume PowerShell or Windows paths.** This project runs in WSL Ubuntu. Use bash syntax, forward slashes, and Unix-style paths (`~/projects/wvtr`, not `C:\...`).
 11. Always present a plan (5–10 lines) before writing any code. Wait for explicit approval ("пиши код" / "go") before implementing. Never write code and plan in the same response.
 12. After completing a task, review CLAUDE.md and list any updates needed: Current Status, file structure, new dependencies, or other sections that should reflect the changes made. Do not edit CLAUDE.md yourself — list the changes for the author to approve.
+13. After code review, check BACKLOG.md for duplicates before adding new items. If an item was already fixed, mark it as "done" with date. Do not add items that already exist or were already resolved. Do this automatically after every code review without asking.
 
 ---
 
