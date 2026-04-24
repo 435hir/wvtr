@@ -56,40 +56,7 @@ Tables (PostgreSQL, Supabase):
 - **`matches`** — `id`, `tournament_id`, `team_a_id`, `team_b_id`, `score_a`, `score_b`, `match_date`, `status`
 - **`sets`** — `match_id`, `set_number`, `points_a`, `points_b`
 
-All insert operations use `ON CONFLICT ... DO NOTHING` or `DO UPDATE` for idempotency. Connections use `psycopg2.connect(**DB_CONFIG)` pattern where `DB_CONFIG` is imported from `scraper/config.py`.
-
-Example pattern (already in `scraper/database.py`):
-
-```python
-import psycopg2
-from config import DB_CONFIG
-
-def get_connection():
-    return psycopg2.connect(**DB_CONFIG)
-
-def insert_match(match_id, tournament_id, team_a_id, team_b_id,
-                 score_a, score_b, match_date, status):
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute(
-        """
-        INSERT INTO matches
-        (id, tournament_id, team_a_id, team_b_id, score_a, score_b, match_date, status)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        ON CONFLICT (id) DO UPDATE SET
-            score_a = EXCLUDED.score_a,
-            score_b = EXCLUDED.score_b,
-            status  = EXCLUDED.status
-        """,
-        (match_id, tournament_id, team_a_id, team_b_id,
-         score_a, score_b, match_date, status)
-    )
-    conn.commit()
-    cur.close()
-    conn.close()
-```
-
-Follow this pattern for any new DB operation.
+All insert operations use `ON CONFLICT ... DO NOTHING` or `DO UPDATE` for idempotency. Connections use `psycopg2.connect(**DB_CONFIG)` pattern where `DB_CONFIG` is imported from `scraper/config.py`. Follow the existing patterns in `scraper/database.py` for any new DB operation.
 
 ---
 
@@ -168,15 +135,6 @@ source .venv/bin/activate
 python scraper/scraper.py
 ```
 
-### Git (author runs these manually — NOT Claude Code, see Hard rule #7)
-```bash
-git status
-git diff
-git add <specific files>
-git commit -m "feat: <what>"
-git push
-```
-
 ---
 
 ## Conventions
@@ -233,13 +191,7 @@ git push
 - Update pipeline runs within 48h of each game round
 - Public web frontend: team ranking table, league ranking table, search by team, methodology page
 
-**Out of scope (do not build):**
-- Match history views, player stats, predictions
-- Mobile app
-- Juniors / amateur / lower divisions / beach volleyball
-- National team rankings
-- User accounts, personalization, monetization
-- Seasons before 2023/24
+**Out of scope — defer to v1.1+:** match history views, player stats, predictions, mobile app, juniors/amateur/beach, national team rankings, user accounts, personalization, monetization, seasons before 2023/24.
 
 If a request looks like it falls into "out of scope," flag it and propose deferring to v1.1+.
 
@@ -262,7 +214,6 @@ If a request looks like it falls into "out of scope," flag it and propose deferr
 - **Language for conversation:** Russian. **Language for code, comments, commits, docs:** English.
 - **Be direct.** Push back on weak approaches with reasoning. No agreement-for-agreement's-sake.
 - **No filler.** No "as an AI", no "great question", no apology chains.
-- **Plan before code.** For any non-trivial task, first produce a 5–10 line plan and wait for explicit approval ("ok, code"). Do not start writing code until you get that approval. "Non-trivial" = anything beyond a 1–2 line fix.
 - **One task, one file, one commit.** Do not modify multiple unrelated files in a single response. If the task requires touching multiple files, split it into sequential sub-tasks and confirm each one before moving on.
 - **State scope before editing.** Before writing code, list which files you will touch and which you will not.
 - **Summarise after editing.** After writing code, give a 2–3 line summary of what changed and why.
