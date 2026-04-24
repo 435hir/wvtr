@@ -209,5 +209,7 @@ __marimo__/
 # Локальные настройки Claude Code
 .claude/settings.local.json
 
+.claude/scheduled_tasks.lock
+
 # Windows Zone.Identifier метки на скачанных файлах
 *:Zone.Identifier
